@@ -89,6 +89,7 @@ _ipa_to_lazy_ipa = [(re.compile('%s' % x[0], re.IGNORECASE), x[1]) for x in [
 def latin_to_hangul(text):
     for regex, replacement in _latin_to_hangul:
         text = re.sub(regex, replacement, text)
+    print(text)
     return text
 
 
@@ -96,6 +97,7 @@ def divide_hangul(text):
     text = j2hcj(h2j(text))
     for regex, replacement in _hangul_divided:
         text = re.sub(regex, replacement, text)
+    print(text)
     return text
 
 
@@ -193,6 +195,7 @@ def number_to_hangul(text):
     names = '영일이삼사오육칠팔구'
     for d, n in zip(digits, names):
         text = text.replace(d, n)
+    print(text)
     return text
 
 
@@ -202,9 +205,11 @@ def korean_to_lazy_ipa(text):
     text=re.sub('[\uac00-\ud7af]+',lambda x:ko_pron.romanise(x.group(0),'ipa').split('] ~ [')[0],text)
     for regex, replacement in _ipa_to_lazy_ipa:
         text = re.sub(regex, replacement, text)
+    print(text)
     return text
 
 
 def korean_to_ipa(text):
     text = korean_to_lazy_ipa(text)
+    print(text)
     return text.replace('ʧ','tʃ').replace('ʥ','dʑ')
